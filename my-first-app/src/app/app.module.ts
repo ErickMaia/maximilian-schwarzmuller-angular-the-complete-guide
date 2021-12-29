@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { TestingTimeOutComponent } from './Components/testing-time-out/testing-time-out.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TestingTimeOutComponent
   ],
   imports: [
     BrowserModule,
