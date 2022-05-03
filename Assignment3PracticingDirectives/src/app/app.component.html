@@ -1,0 +1,8 @@
+<input type="button" value="Display details" (click)="toggleDisplay()">
+<p *ngIf="displaySecret">Secret password</p>
+<hr>
+<ol>
+  <li *ngFor="let logItem of log" 
+  [ngStyle]="{backgroundColor: (logItem.index > 5? 'blue' : 'white') }" 
+  [ngClass]="{isAfterFive: logItem.index > 5}">{{logItem.value}}</li>
+</ol>
