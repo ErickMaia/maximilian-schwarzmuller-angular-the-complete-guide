@@ -8,21 +8,25 @@ import { logItem } from './logitem';
 })
 export class AppComponent {
 
+  toggleDisplayButtonLabel: string = "Display details"; 
+
   displaySecret: boolean = false; 
 
   log: logItem[] = []
 
   toggleDisplay(): void{
-    
+
+    this.displaySecret = !this.displaySecret
+
     let logMessage: string; 
     
     if(this.displaySecret){
-      logMessage = "The secret message was hidden. "
-    }else{
       logMessage = "The secret message was revealed. "
+      this.toggleDisplayButtonLabel = "Hide details"
+    }else{
+      logMessage = "The secret message was hidden. "
+      this.toggleDisplayButtonLabel = "Display details"
     }
-
-    this.displaySecret = !this.displaySecret
 
     let newLogItem: logItem = {
       index: this.log.length + 1,

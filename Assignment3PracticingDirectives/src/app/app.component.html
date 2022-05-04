@@ -1,4 +1,4 @@
-<input type="button" value="Display details" (click)="toggleDisplay()">
+<input type="button" [value]="toggleDisplayButtonLabel" (click)="toggleDisplay()">
 <p *ngIf="displaySecret">Secret password</p>
 <hr>
 <ol>
