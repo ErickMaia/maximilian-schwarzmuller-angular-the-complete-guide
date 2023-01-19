@@ -15,23 +15,20 @@ export class CockpitComponent implements OnInit {
   @Output() serverCreated = new EventEmitter<{serverName: string, serverContent: string }>(); 
   @Output("bpCreated") blueprintCreated = new EventEmitter<{blueprintName: string, blueprintContent : string}>();
 
-  newServerName = '';
-  newServerContent = '';
-
-  onAddServer() {
+  onAddServer(serverNameInput: string, serverContentInput: string) {
     this.serverCreated.emit(
         {
-          serverName: this.newServerName, 
-          serverContent: this.newServerContent
+          serverName: serverNameInput, 
+          serverContent: serverContentInput
         }
       ); 
   }
 
-  onAddBlueprint() {
+  onAddBlueprint(serverNameInput: string, serverContentInput: string) {
     this.blueprintCreated.emit(
       {
-        blueprintName: this.newServerName, 
-        blueprintContent: this.newServerContent
+        blueprintName: serverNameInput, 
+        blueprintContent: serverContentInput
       }
     ); 
   }
