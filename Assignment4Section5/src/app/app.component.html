@@ -1,0 +1,11 @@
+<app-game-control (counting)="onCounting($event)"></app-game-control>
+
+<div *ngFor="let number of numbers">
+  <app-even *ngIf="number % 2 == 0">
+    <p style="display: inline-block; border: solid 2px black; padding: 10px; ">Even - {{number}}</p>
+  </app-even>
+
+  <app-odd *ngIf="number % 2 != 0">
+    <p style="display: inline-block; border: solid 2px black; padding: 10px; background-color: black; color: white; ">Odd - {{number}}</p>
+  </app-odd>
+</div>
