@@ -16,7 +16,7 @@
           </li>
         </div>
         
-        <div *ngIf="!onlyOdd">
+        <!-- <div *ngIf="!onlyOdd">
           <li
             class="list-group-item" 
             *ngFor="let even of evenNumbers"
@@ -34,8 +34,18 @@
             [ngStyle]="{backgroundColor: even % 2 == 0 ? 'yellow' : 'beige'}">
             {{even}}
           </li>
-        </ng-template>
+        </ng-template> -->
         
+        <div *appUnless="onlyOdd">
+          <li
+            class="list-group-item" 
+            *ngFor="let even of evenNumbers"
+            [ngClass]="{even: even % 2 == 0}"
+            [ngStyle]="{backgroundColor: even % 2 == 0 ? 'yellow' : 'beige'}">
+            {{even}}
+          </li>
+        </div>
+
       </ul>
       <p appBasicHighlight>Please style me with basic highlight directive. </p>
       <p [appBetterHighlight]="'red'">Please style me with better highlight directive. </p>
