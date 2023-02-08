@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
+import { ShoppingListService } from './services/shopping-list.service';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
-  styleUrls: ['./shopping-list.component.sass']
+  styleUrls: ['./shopping-list.component.sass'], 
+  providers: [ShoppingListService]
 })
 export class ShoppingListComponent implements OnInit {
 
