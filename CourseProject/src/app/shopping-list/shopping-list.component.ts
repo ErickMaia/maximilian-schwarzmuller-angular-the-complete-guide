@@ -5,19 +5,23 @@ import { ShoppingListService } from './services/shopping-list.service';
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
-  styleUrls: ['./shopping-list.component.sass'], 
-  providers: [ShoppingListService]
+  styleUrls: ['./shopping-list.component.sass']
 })
 export class ShoppingListComponent implements OnInit {
 
-  ingredients: Ingredient[] = [
-    new Ingredient("Apples", 5),
-    new Ingredient("Apples", 10)
-  ]
+  ingredients: Ingredient[]
 
-  constructor() { }
+  constructor(private shoppingListService: ShoppingListService) { }
 
   ngOnInit(): void {
+
+    this.ingredients = this.shoppingListService.getIngredients()
+
+    this.shoppingListService.ingredientsChanged.subscribe(
+      (ingredients: Ingredient[]) => {
+        this.ingredients = ingredients
+      }
+    )
   }
 
 }
