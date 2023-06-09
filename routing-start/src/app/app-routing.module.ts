@@ -34,6 +34,12 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [
+        // useHash = true is used in old servers which do not support SPAs, 
+        // which would be always looking for phisically implemented sub-routes, 
+        // instead of always looking for index.html independently of the SPA route. 
+        // It adds a # sign right after the root path of the URL, 
+        // this way the server will consider only the path before # sign. 
+        // RouterModule.forRoot(appRoutes, {useHash: true})
         RouterModule.forRoot(appRoutes)
     ], 
     exports: [RouterModule]
