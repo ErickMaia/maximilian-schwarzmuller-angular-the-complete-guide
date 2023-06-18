@@ -28,4 +28,10 @@ export class RecipesService {
   getRecipes(){
     return this.recipes.slice();
   }
+
+  getRecipe(recipeName: string){
+    return this.recipes.filter(
+      (recipe) => recipe.name == recipeName
+    )
+  }
 }
