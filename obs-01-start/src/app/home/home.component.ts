@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     )
 
-    //Lesson 177. Operators
+    //Lesson 177. Understanding Operators
     let customIntervalObservableWithPipe = 
       customIntervalObservable.pipe(
           filter(
