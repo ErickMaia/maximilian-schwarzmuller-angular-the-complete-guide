@@ -30,7 +30,7 @@ export class RecipesService {
   }
 
   getRecipe(recipeName: string){
-    return this.recipes.filter(
+    return this.recipes.find(
       (recipe) => recipe.name == recipeName
     )
   }

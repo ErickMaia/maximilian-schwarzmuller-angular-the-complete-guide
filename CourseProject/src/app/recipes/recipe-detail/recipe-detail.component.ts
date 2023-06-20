@@ -31,7 +31,7 @@ export class RecipeDetailComponent implements OnInit {
       (params: Params) => {
         let recipeName = params['name']
         if(recipeName != ""){
-          this.recipe = this.recipesService.getRecipe(recipeName)[0]
+          this.recipe = this.recipesService.getRecipe(recipeName)
         }
       }
     )
