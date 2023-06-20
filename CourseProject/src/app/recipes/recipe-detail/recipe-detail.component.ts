@@ -12,6 +12,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 export class RecipeDetailComponent implements OnInit {
   
   recipe: Recipe;
+  id: number;
 
   constructor(
     private shoppingListService: ShoppingListService, 
@@ -21,9 +22,9 @@ export class RecipeDetailComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let id: number = +this.activatedRoute.snapshot.params['id']
+    this.id = +this.activatedRoute.snapshot.params['id']
 
-    if(id === 0 || id == undefined){
+    if(this.id === 0 || this.id == undefined){
       this.router.navigate(['please-select', {relativeTo: this.activatedRoute.parent}])
     }
 
@@ -39,6 +40,10 @@ export class RecipeDetailComponent implements OnInit {
 
   sendIngredientsToShoppingList() {
     this.shoppingListService.addIngredients(this.recipe.ingredients)
+  }
+
+  onEditRecipe(){
+    this.router.navigate(["edit", this.id], {relativeTo: this.activatedRoute.parent})
   }
 
 }
