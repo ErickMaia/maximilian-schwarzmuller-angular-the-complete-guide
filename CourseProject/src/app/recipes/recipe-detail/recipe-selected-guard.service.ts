@@ -10,9 +10,9 @@ export class RecipeSelectedGuardService implements CanActivate{
   constructor(private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    let name = route.params['name']
+    let id: number = +route.params['id']
 
-    if(name == null || name == undefined || name == ''){
+    if(id == null || id == undefined || id == 0){
       this.router.navigate(['/recipes/please-select'])
     }else{
       return true

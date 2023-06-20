@@ -10,10 +10,10 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
 const routes: Routes = [
   {path: '', redirectTo: '/recipes/please-select', pathMatch: 'full'},
   {path: 'recipes', component: RecipesComponent, children:[
-    {path: 'detail/:name', component: RecipeDetailComponent,canActivate: [RecipeSelectedGuardService]}, 
+    {path: 'detail/:id', component: RecipeDetailComponent,canActivate: [RecipeSelectedGuardService]}, 
     {path: 'please-select', component: PleaseSelectRecipeForRecipeDetailComponent}, 
     {path: 'new', component: RecipeEditComponent},
-    {path: 'edit/:name', component: RecipeEditComponent}
+    {path: 'edit/:id', component: RecipeEditComponent}
   ]}, 
   {component: ShoppingListComponent, path: 'shopping-list'}
 ];

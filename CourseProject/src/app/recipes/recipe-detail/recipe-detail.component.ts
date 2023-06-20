@@ -21,17 +21,17 @@ export class RecipeDetailComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let name: string = this.activatedRoute.snapshot.params['name']
+    let id: number = +this.activatedRoute.snapshot.params['id']
 
-    if(name === "" || name == undefined){
+    if(id === 0 || id == undefined){
       this.router.navigate(['please-select', {relativeTo: this.activatedRoute.parent}])
     }
 
     this.activatedRoute.params.subscribe(
       (params: Params) => {
-        let recipeName = params['name']
-        if(recipeName != ""){
-          this.recipe = this.recipesService.getRecipe(recipeName)
+        let recipeId = +params['id']
+        if(recipeId != 0 || recipeId != undefined){
+          this.recipe = this.recipesService.getRecipe(recipeId)
         }
       }
     )
