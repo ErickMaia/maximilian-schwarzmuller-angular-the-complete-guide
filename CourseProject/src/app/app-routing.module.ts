@@ -5,13 +5,15 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import { PleaseSelectRecipeForRecipeDetailComponent } from './recipes/recipe-detail/please-select-recipe-for-recipe-detail/please-select-recipe-for-recipe-detail.component';
 import { RecipeSelectedGuardService } from './recipes/recipe-detail/recipe-selected-guard.service';
+import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/recipes/please-select', pathMatch: 'full'},
-  {component: RecipesComponent, path: 'recipes', children:[
-    {component: RecipeDetailComponent, path: 'detail/:name'
-    , canActivate: [RecipeSelectedGuardService]}, 
-    {component: PleaseSelectRecipeForRecipeDetailComponent, path: 'please-select'}
+  {path: 'recipes', component: RecipesComponent, children:[
+    {path: 'detail/:name', component: RecipeDetailComponent,canActivate: [RecipeSelectedGuardService]}, 
+    {path: 'please-select', component: PleaseSelectRecipeForRecipeDetailComponent}, 
+    {path: 'new', component: RecipeEditComponent},
+    {path: 'edit/:name', component: RecipeEditComponent}
   ]}, 
   {component: ShoppingListComponent, path: 'shopping-list'}
 ];
