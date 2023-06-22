@@ -40,6 +40,14 @@
             <option value="pet">Your first Pet?</option>
             <option value="teacher">Your first teacher?</option>
           </select>
+        <div class="form-group">
+          <textarea
+            class="form-control" 
+            name="questionAnswer" 
+            rows="3" 
+            [(ngModel)]="answer"></textarea>
+        </div>
+        <p>Your reply: {{answer}}</p>
         </div>
         <button 
           class="btn btn-primary" 
