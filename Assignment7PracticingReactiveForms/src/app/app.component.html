@@ -1,0 +1,40 @@
+<form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+
+  <!-- PROJECT NAME -->
+  <label for="name">Project name</label>
+  <input id="name" type="text" formControlName="name">
+  <div *ngIf="projectForm.get('name').invalid && projectForm.get('name').touched">
+    <span *ngIf="projectForm.get('name').errors['required']">
+      Project name is required!
+    </span>
+    <span *ngIf="projectForm.get('name').errors['projectNameIsTest']">
+      Project name is invalid!
+    </span>
+  </div>
+
+  <!-- E-MAIL -->
+  <label for="email">E-mail</label>
+  <input id="email" type="email" formControlName="email">
+  <div *ngIf="projectForm.get('email').invalid && projectForm.get('email').touched">
+    <span *ngIf="projectForm.get('email').errors['required']">
+      E-mail is required!
+    </span>
+    <span *ngIf="projectForm.get('email').errors['email']">
+      E-mail is invalid!
+    </span>
+  </div>
+
+  <!-- PROJECT STATUS -->
+  <label for="status">Project status</label>
+  <select name="status" id="status" formControlName="status">
+    <option value="Stable">Stable</option>
+    <option value="Critical">Critical</option>
+    <option value="Finished">Finished</option>
+  </select>
+  <span *ngIf="projectForm.get('status').invalid && projectForm.get('status').touched">
+    Project status is required!
+  </span>
+
+  <button [disabled]="projectForm.invalid" type="submit">Submit</button>
+
+</form>
