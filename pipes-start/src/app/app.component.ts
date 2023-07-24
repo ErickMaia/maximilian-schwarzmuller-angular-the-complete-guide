@@ -35,6 +35,18 @@ export class AppComponent {
 
   filteredStatus = ''
 
+  onAddServer(){
+    console.log("adding new server");
+    
+    this.servers.push({
+      instanceType: 'small',
+      name: 'New Server', 
+      status: 'stable', 
+      started: new Date(15, 1, 2017)
+    }
+    )
+  }
+
   getStatusClasses(server: {instanceType: string, name: string, status: string, started: Date}) {
     return {
       'list-group-item-success': server.status === 'stable',
