@@ -24,7 +24,7 @@ export class RecipeDetailComponent implements OnInit {
 
     this.id = +this.activatedRoute.snapshot.params['id']
 
-    if(this.id === 0 || this.id == undefined){
+    if(this.id === null || this.id == undefined){
       this.router.navigate(['please-select', {relativeTo: this.activatedRoute.parent}])
     }
 

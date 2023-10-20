@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RecipesService } from '../services/recipes.service';
+import { Recipe } from '../recipe.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -56,6 +57,7 @@ export class RecipeEditComponent implements OnInit {
 
     this.recipeForm = new FormGroup(
       {
+        'id': new FormControl(this.id),
         'name': new FormControl(recipeName, Validators.required),
         'imagePath': new FormControl(recipeImagePath, Validators.required),
         'description': new FormControl(recipeDescription, Validators.required),
@@ -65,7 +67,21 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.recipeForm)
+
+    // code commented because the names of the properties in the form are the same from the Recipe object
+    // typescript can realise it and pass the appropriate fields to the appropriate properties in the object
+    // let newRecipe = new Recipe(
+    //   this.id, 
+    //   this.recipeForm.value['name'], 
+    //   this.recipeForm.value['amount'], 
+    //   this.recipeForm.value['imagePath'], 
+    //   this.recipeForm.value['ingredients'])
+
+    if(this.editMode){
+      this.recipesService.updateRecipe(this.recipeForm.value)
+    }else{
+      this.recipesService.addRecipe(this.recipeForm.value); 
+    }
   }
 
   get controls() {
