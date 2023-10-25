@@ -24,8 +24,8 @@ export class RecipeDetailComponent implements OnInit {
 
     this.id = +this.activatedRoute.snapshot.params['id']
 
-    if(this.id === null || this.id == undefined){
-      this.router.navigate(['please-select', {relativeTo: this.activatedRoute.parent}])
+    if(this.id === null || this.id === undefined){
+      this.router.navigate(['please-select'], {relativeTo: this.activatedRoute.parent})
     }
 
     this.activatedRoute.params.subscribe(
@@ -44,6 +44,11 @@ export class RecipeDetailComponent implements OnInit {
 
   onEditRecipe(){
     this.router.navigate(["edit", this.id], {relativeTo: this.activatedRoute.parent})
+  }
+
+  onDeleteRecipe(){
+    this.recipesService.deleteRecipe(this.id)
+    this.router.navigate(['please-select'], {relativeTo: this.activatedRoute.parent})
   }
 
 }
