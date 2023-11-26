@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { Post } from '../post.model';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
+
+  errorOcurred = new Subject<string>();
+
 
   constructor(private httpClient: HttpClient) { }
 
@@ -26,7 +29,10 @@ export class PostsService {
         console.log(responseData);
         
       }
-    )
+    ,
+    error => {
+      this.errorOcurred.next(error.message)
+    })
   }
 
   fetchPosts(): Observable<Post[]>{
