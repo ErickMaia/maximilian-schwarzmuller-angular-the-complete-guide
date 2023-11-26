@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     console.log(postData);
 
     this.httpClient.post<{name: string}>(
-      'https://angular-testing-bfa5c-default-rtdb.firebaseio.com/posts.json', 
+      'http://localhost:5215/api/Posts', 
       postData
     ).subscribe(
       responseData => {
@@ -43,16 +43,18 @@ export class AppComponent implements OnInit {
 
   private fetchPosts(){
     this.httpClient.get<{[key: string]: Post}>(
-      'https://angular-testing-bfa5c-default-rtdb.firebaseio.com/posts.json'
+      'http://localhost:5215/api/Posts'
     )
     .pipe(map(
       (responseData) => {
+        console.log("Response data", responseData);
         const postsArray: Post[] = []; 
         for(const key in responseData){
           if(responseData.hasOwnProperty(key)){
             postsArray.push({... responseData[key], id: key})
           }
         }
+        console.log("Posts list", postsArray)
         return postsArray; 
       }
     ))
