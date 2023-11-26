@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators'; 
 import { Post } from './post.model';
+import { PostsService } from './services/posts.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -12,26 +13,15 @@ export class AppComponent implements OnInit {
   loadedPosts = [];
   isFetching: boolean = false; 
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private postsService: PostsService) {}
 
   ngOnInit() {
     this.fetchPosts()
   }
 
   onCreatePost(postData: Post) {
-    // Send Http request
-    console.log(postData);
-
-    this.httpClient.post<{name: string}>(
-      'http://localhost:5215/api/Posts', 
-      postData
-    ).subscribe(
-      responseData => {
-        console.log(responseData);
-        
-      }
-    )
-
+    this.postsService.createAndStorePost(postData.title, postData.content)
   }
 
   onFetchPosts() {
@@ -44,27 +34,12 @@ export class AppComponent implements OnInit {
 
   private fetchPosts(){
     this.isFetching = true; 
-    this.httpClient.get<{[key: string]: Post}>(
-      'http://localhost:5215/api/Posts'
-    )
-    .pipe(map(
-      (responseData) => {
-        console.log("Response data", responseData);
-        const postsArray: Post[] = []; 
-        for(const key in responseData){
-          if(responseData.hasOwnProperty(key)){
-            postsArray.push({... responseData[key], id: key})
-          }
+    this.postsService.fetchPosts()
+      .subscribe(
+        posts => {
+          this.loadedPosts = posts
+          this.isFetching = false;
         }
-        console.log("Posts list", postsArray)
-        return postsArray; 
-      }
-    ))
-    .subscribe(
-      posts => {
-        this.loadedPosts = posts
-        this.isFetching = false;
-      }
-    )
+      )
   }
 }
