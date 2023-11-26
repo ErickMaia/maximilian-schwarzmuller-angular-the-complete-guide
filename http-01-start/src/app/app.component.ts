@@ -10,6 +10,7 @@ import { Post } from './post.model';
 })
 export class AppComponent implements OnInit {
   loadedPosts = [];
+  isFetching: boolean = false; 
 
   constructor(private httpClient: HttpClient) {}
 
@@ -42,6 +43,7 @@ export class AppComponent implements OnInit {
   }
 
   private fetchPosts(){
+    this.isFetching = true; 
     this.httpClient.get<{[key: string]: Post}>(
       'http://localhost:5215/api/Posts'
     )
@@ -59,7 +61,10 @@ export class AppComponent implements OnInit {
       }
     ))
     .subscribe(
-      posts => this.loadedPosts = posts
+      posts => {
+        this.loadedPosts = posts
+        this.isFetching = false;
+      }
     )
   }
 }
