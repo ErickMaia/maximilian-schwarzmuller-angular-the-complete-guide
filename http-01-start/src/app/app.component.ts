@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent implements OnInit {
   loadedPosts = [];
   isFetching: boolean = false; 
+  error = null; 
 
   constructor(
     private postsService: PostsService) {}
@@ -48,7 +49,10 @@ export class AppComponent implements OnInit {
       () => {
         this.loadedPosts = []
       }
-    ); 
+    , error => {
+      console.log("Error when trying to delete: ", error)
+      this.error = error.message; 
+    }); 
   }
 
   
