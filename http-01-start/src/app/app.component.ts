@@ -28,10 +28,6 @@ export class AppComponent implements OnInit {
     this.fetchPosts(); 
   }
 
-  onClearPosts() {
-    // Send Http request
-  }
-
   private fetchPosts(){
     this.isFetching = true; 
     this.postsService.fetchPosts()
@@ -42,4 +38,18 @@ export class AppComponent implements OnInit {
         }
       )
   }
+
+  onClearPosts() {
+    this.clearPosts(); 
+  }
+
+  clearPosts(){
+    this.postsService.deleteAllPosts().subscribe(
+      () => {
+        this.loadedPosts = []
+      }
+    ); 
+  }
+
+  
 }

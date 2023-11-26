@@ -47,4 +47,10 @@ export class PostsService {
       }
     ))
   }
+
+  deleteAllPosts(){
+    return this.httpClient.delete(
+      'http://localhost:5215/api/Posts'
+    )
+  }
 }
