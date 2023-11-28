@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Post } from '../post.model';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpParams, HttpEventType, HttpResponse, HttpEvent, HttpRequest } from '@angular/common/http';
+import { map, catchError, tap } from 'rxjs/operators';
 import { Observable, Subject, throwError } from 'rxjs';
 
 @Injectable({
@@ -45,7 +45,9 @@ export class PostsService {
       'http://localhost:5215/api/Posts', 
       {
         headers: new HttpHeaders({"custom-header": "Hello!"}), 
-        params: searchParams
+        params: searchParams, 
+        observe: "response"
+        
       }
     )
     .pipe(map(
@@ -72,7 +74,25 @@ export class PostsService {
 
   deleteAllPosts(){
     return this.httpClient.delete(
-      'http://localhost:5215/api/Posts'
+      'http://localhost:5215/api/Posts',
+      {
+        observe: "events"
+      }
+    ).pipe(
+      tap({
+          next: (event: HttpEvent<any>) => {
+
+            if(event.type === HttpEventType.Sent){
+              console.log("Request sent. Awaiting for response. ")
+            }
+            if(event.type === HttpEventType.Response){
+              console.log(event); 
+            }
+          }, 
+          error: (error) => {
+            console.log(error); 
+          }}
+      )
     )
   }
 }
