@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Post } from '../post.model';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { Observable, Subject, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +51,14 @@ export class PostsService {
         console.log("Posts list", postsArray)
         return postsArray; 
       }
-    ))
+    ),
+    catchError(e => {
+      //Send to analytics server
+
+      return throwError(e); 
+    })
+    )
+    
   }
 
   deleteAllPosts(){
