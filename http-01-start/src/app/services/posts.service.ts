@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Post } from '../post.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, Subject, throwError } from 'rxjs';
 
@@ -36,10 +36,16 @@ export class PostsService {
   }
 
   fetchPosts(): Observable<Post[]>{
+
+    let searchParams: HttpParams = new HttpParams(); 
+    searchParams = searchParams.append("print", "pretty"); 
+    searchParams = searchParams.append("custom", "key"); 
+
     return this.httpClient.get<{[key: string]: Post}>(
       'http://localhost:5215/api/Posts', 
       {
-        headers: new HttpHeaders({"custom-header": "Hello!"})
+        headers: new HttpHeaders({"custom-header": "Hello!"}), 
+        params: searchParams
       }
     )
     .pipe(map(
