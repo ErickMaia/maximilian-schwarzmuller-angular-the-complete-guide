@@ -46,8 +46,10 @@ export class PostsService {
       {
         headers: new HttpHeaders({"custom-header": "Hello!"}), 
         params: searchParams, 
-        observe: "response"
-        
+        observe: "body", 
+        responseType: "json" 
+        //responseType: "json" is optional in this case because of the <{[key: string]: Post}> type above. 
+        //It makes typescript infer that the responseType will be json. 
       }
     )
     .pipe(map(
@@ -76,7 +78,8 @@ export class PostsService {
     return this.httpClient.delete(
       'http://localhost:5215/api/Posts',
       {
-        observe: "events"
+        observe: "events", 
+        responseType: "text"
       }
     ).pipe(
       tap({
