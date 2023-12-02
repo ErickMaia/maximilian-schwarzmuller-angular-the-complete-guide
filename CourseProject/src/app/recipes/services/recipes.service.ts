@@ -1,8 +1,10 @@
 import { Ingredient } from 'src/app/shared/ingredient.model';
 import { Recipe } from '../recipe.model';
 import { Subject } from 'rxjs';
+import { Injectable } from '@angular/core';
 
-export class RecipesService {
+@Injectable()
+export class RecipesService{
 
   recipesChanged = new Subject<Recipe[]>(); 
 
@@ -25,7 +27,14 @@ export class RecipesService {
        new Ingredient('Soy sauce', 1)])
   ]
 
-  constructor() { }
+  constructor() {
+
+   }
+
+   setRecipes(recipes: Recipe[]){
+    this.recipes = recipes; 
+    this.recipesChanged.next(recipes.slice()); 
+   }
 
   getRecipes(){
     return this.recipes.slice();
