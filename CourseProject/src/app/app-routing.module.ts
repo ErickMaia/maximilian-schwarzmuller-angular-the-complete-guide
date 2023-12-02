@@ -6,11 +6,14 @@ import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.com
 import { PleaseSelectRecipeForRecipeDetailComponent } from './recipes/recipe-detail/please-select-recipe-for-recipe-detail/please-select-recipe-for-recipe-detail.component';
 import { RecipeSelectedGuardService } from './recipes/recipe-detail/recipe-selected-guard.service';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+import { RecipesResolverService } from './recipes/services/recipes-resolver-service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/recipes/please-select', pathMatch: 'full'},
   {path: 'recipes', component: RecipesComponent, children:[
-    {path: 'detail/:id', component: RecipeDetailComponent,canActivate: [RecipeSelectedGuardService]}, 
+    {path: 'detail/:id', component: RecipeDetailComponent,
+      canActivate: [RecipeSelectedGuardService], 
+      resolve: [RecipesResolverService]},
     {path: 'please-select', component: PleaseSelectRecipeForRecipeDetailComponent}, 
     {path: 'new', component: RecipeEditComponent},
     {path: 'edit/:id', component: RecipeEditComponent}
