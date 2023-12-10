@@ -7,6 +7,7 @@ import { PleaseSelectRecipeForRecipeDetailComponent } from './recipes/recipe-det
 import { RecipeSelectedGuardService } from './recipes/recipe-detail/recipe-selected-guard.service';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipesResolverService } from './recipes/services/recipes-resolver-service';
+import { AuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/recipes/please-select', pathMatch: 'full'},
@@ -18,7 +19,8 @@ const routes: Routes = [
     {path: 'new', component: RecipeEditComponent},
     {path: 'edit/:id', component: RecipeEditComponent}
   ]}, 
-  {component: ShoppingListComponent, path: 'shopping-list'}
+  {path: 'shopping-list', component: ShoppingListComponent}, 
+  {path: 'auth', component: AuthComponent}
 ];
 
 @NgModule({

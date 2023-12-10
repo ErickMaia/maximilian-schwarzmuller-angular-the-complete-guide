@@ -17,6 +17,7 @@ import { ShoppingListService } from './shopping-list/services/shopping-list.serv
 import { PleaseSelectRecipeForRecipeDetailComponent } from './recipes/recipe-detail/please-select-recipe-for-recipe-detail/please-select-recipe-for-recipe-detail.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipesService } from './recipes/services/recipes.service';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { RecipesService } from './recipes/services/recipes.service';
     ShoppingEditComponent,
     DropdownDirective,
     PleaseSelectRecipeForRecipeDetailComponent,
-    RecipeEditComponent
+    RecipeEditComponent, 
+    AuthComponent
   ],
   imports: [
     BrowserModule,
