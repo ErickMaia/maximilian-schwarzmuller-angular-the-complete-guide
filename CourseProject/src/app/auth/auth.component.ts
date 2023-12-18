@@ -13,6 +13,8 @@ export class AuthComponent{
     }
 
     isLoginMode = true; 
+    isLoading = false; 
+    error: string = null;
 
     onSwitchMode(){
         this.isLoginMode = !this.isLoginMode
@@ -27,6 +29,8 @@ export class AuthComponent{
         const password = authForm.value.password; 
 
 
+        this.isLoading = true; 
+
         if(this.isLoginMode){
             // TODO add login logic
         }else{
@@ -35,13 +39,18 @@ export class AuthComponent{
             .subscribe(
                 response => {
                     console.log(response)
+                    this.isLoading = false; 
                 },
                 error => {
                     console.log(error)
+                    this.error = "An error ocurred."
+                    this.isLoading = false; 
                 }
             )
         }
 
         authForm.reset()
+
+        
     }
 }
