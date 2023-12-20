@@ -3,13 +3,14 @@ import { Injectable } from "@angular/core";
 import { throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 
-interface AuthResponseData{
-    kind: string, 
-    idToken: string, 
-    email: string,
-    refreshToken: string, 
-    expiresIn: string, 
+export interface AuthResponseData{
+    kind: string
+    idToken: string
+    email: string
+    refreshToken: string
+    expiresIn: string
     localId: string
+    registered?: boolean
 }
 
 @Injectable({
@@ -21,11 +22,12 @@ export class AuthService{
 
     }
 
+    // Just an API key for testing purposes on this course. It doesn't store important information and there is no problem for it to be explicit here.
+    apiKey = "AIzaSyDqCggIG453WcBWmiFPbxucyaRRmdaqwRg"
+
     signUp(email: string, password: string){
 
-        let apiKey = "AIzaSyDqCggIG453WcBWmiFPbxucyaRRmdaqwRg"
-
-        let url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + apiKey
+        let url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + this.apiKey
 
         return this.httpClient.post<AuthResponseData>
         (
@@ -52,6 +54,21 @@ export class AuthService{
                 return throwError(errorMessage); 
             }
         ))
+    }
+
+
+    login(email: string, password: string){
+        let url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + this.apiKey
+
+        return this.httpClient.post<AuthResponseData>(
+            url, 
+            {
+                email: email, 
+                password: password, 
+                returnSecureToken: true
+            }
+        )
+
     }
 
 }
