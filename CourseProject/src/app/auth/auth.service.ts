@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user.model';
+import { Router } from '@angular/router';
 
 export interface AuthResponseData {
   kind: string;
@@ -21,7 +22,7 @@ export class AuthService {
 
   user = new BehaviorSubject<User>(null); 
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
   // Just an API key for testing purposes on this course. It doesn't store important information and there is no problem for it to be explicit here.
   apiKey = 'AIzaSyDqCggIG453WcBWmiFPbxucyaRRmdaqwRg';
@@ -85,6 +86,11 @@ export class AuthService {
           );
         })
       );
+  }
+
+  logout(){
+    this.user.next(null)
+    this.router.navigate(['/auth']);
   }
 
   private handleError(errorResponse: HttpErrorResponse) {
