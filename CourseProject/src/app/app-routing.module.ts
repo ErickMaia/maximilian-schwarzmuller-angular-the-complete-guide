@@ -8,10 +8,13 @@ import { RecipeSelectedGuardService } from './recipes/recipe-detail/recipe-selec
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipesResolverService } from './recipes/services/recipes-resolver-service';
 import { AuthComponent } from './auth/auth.component';
+import { AuthGuardService } from './auth/auth-guard.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/recipes/please-select', pathMatch: 'full'},
-  {path: 'recipes', component: RecipesComponent, children:[
+  {path: 'recipes', component: RecipesComponent, 
+  canActivate: [AuthGuardService], 
+  children:[
     {path: 'detail/:id', component: RecipeDetailComponent,
       canActivate: [RecipeSelectedGuardService], 
       resolve: [RecipesResolverService]},
