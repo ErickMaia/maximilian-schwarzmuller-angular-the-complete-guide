@@ -22,6 +22,8 @@ export class AuthService {
 
   user = new BehaviorSubject<User>(null); 
 
+  private tokenExpirationTimer: any; 
+
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   // Just an API key for testing purposes on this course. It doesn't store important information and there is no problem for it to be explicit here.
@@ -61,6 +63,8 @@ export class AuthService {
 
     const user = new User(email, userId, token, expirationDate);
 
+    this.autoLogout(expiresIn * 1000)
+
     this.user.next(user);
 
     localStorage.setItem('userData', JSON.stringify(user))
@@ -94,6 +98,10 @@ export class AuthService {
     localStorage.removeItem('userData')
     this.user.next(null)
     this.router.navigate(['/auth']);
+    if(this.tokenExpirationTimer){ 
+      clearTimeout(this.tokenExpirationTimer); 
+    }
+    this.tokenExpirationTimer = null; 
   }
 
   autoLogin(){
@@ -110,7 +118,17 @@ export class AuthService {
 
     if(loadedUser.token){
       this.user.next(loadedUser); 
+      const expirationDuration = 
+        new Date(userData._tokenExpirationDate).getTime() - 
+        new Date().getTime(); 
+      this.autoLogout(expirationDuration);
     }
+  }
+
+  autoLogout(expirationDuration: number){
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logout(); 
+    }, expirationDuration); 
   }
 
   private handleError(errorResponse: HttpErrorResponse) {
