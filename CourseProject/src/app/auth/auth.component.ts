@@ -1,8 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, ComponentFactoryResolver } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { AuthResponseData, AuthService } from "./auth.service";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
+import { AlertComponent } from '../shared/alert/alert.component'; 
 
 @Component({
     selector: 'app-auth', 
@@ -12,7 +13,8 @@ export class AuthComponent{
 
     constructor(
         private authService: AuthService, 
-        private router: Router){
+        private router: Router, 
+        private componentFactoryResolver: ComponentFactoryResolver){
 
     }
 
@@ -52,6 +54,7 @@ export class AuthComponent{
             errorMessage => {
                 console.log(errorMessage)
                 this.error = errorMessage;
+                this.showErrorAlert(errorMessage);
                 this.isLoading = false; 
             }
         )
@@ -63,5 +66,18 @@ export class AuthComponent{
 
     onHandleError(){
         this.error = null;
+    }
+
+    private showErrorAlert(errorMessage: string){
+        // line below won't work. 
+        //It'll just create the component in memory but won't render it in the DOM. 
+        // const alertComp = new AlertComponent();
+
+        const alertComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
+            AlertComponent
+        ); 
+
+
+
     }
 }
