@@ -5,6 +5,9 @@ import { RecipeEditComponent } from "./recipe-edit/recipe-edit.component";
 import { PleaseSelectRecipeForRecipeDetailComponent } from "./recipe-detail/please-select-recipe-for-recipe-detail/please-select-recipe-for-recipe-detail.component";
 import { RecipeItemComponent } from "./recipe-list/recipe-item/recipe-item.component";
 import { RecipeDetailComponent } from "./recipe-detail/recipe-detail.component";
+import { RouterModule } from "@angular/router";
+import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -16,6 +19,11 @@ import { RecipeDetailComponent } from "./recipe-detail/recipe-detail.component";
         PleaseSelectRecipeForRecipeDetailComponent,
         RecipeEditComponent,
     ], 
+    imports: [
+        RouterModule, 
+        CommonModule,
+        ReactiveFormsModule
+    ],
     exports: [
         RecipesComponent,
         RecipeListComponent,
