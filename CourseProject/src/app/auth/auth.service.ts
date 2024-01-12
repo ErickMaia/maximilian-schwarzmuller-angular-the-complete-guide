@@ -4,6 +4,7 @@ import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user.model';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment'
 
 export interface AuthResponseData {
   kind: string;
@@ -26,13 +27,10 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 
-  // Just an API key for testing purposes on this course. It doesn't store important information and there is no problem for it to be explicit here.
-  apiKey = 'AIzaSyDqCggIG453WcBWmiFPbxucyaRRmdaqwRg';
-
   signUp(email: string, password: string) {
     let url =
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' +
-      this.apiKey;
+      environment.firebaseApiKey;
 
     return this.httpClient
       .post<AuthResponseData>(url, {
@@ -73,7 +71,7 @@ export class AuthService {
   login(email: string, password: string) {
     let url =
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' +
-      this.apiKey;
+      environment.firebaseApiKey;
 
     return this.httpClient
       .post<AuthResponseData>(url, {
