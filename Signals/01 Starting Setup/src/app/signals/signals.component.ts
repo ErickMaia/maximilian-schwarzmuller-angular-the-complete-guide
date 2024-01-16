@@ -12,12 +12,12 @@ export class SignalsComponent {
   counter = signal(0);
 
   increment() {
-    this.counter.update(v => v++);
+    this.counter.update(v => ++v);
     this.actions.push('INCREMENT');
   }
 
   decrement() {
-    this.counter.update(v => v--);
+    this.counter.update(v => --v);
     this.actions.push('DECREMENT');
   }
 }
