@@ -3,12 +3,12 @@ import { Action, createAction, props } from "@ngrx/store";
 export const INCREMENT: string = '[Counter] Increment'
 export const DECREMENT: string = '[Counter] Decrement'
 
-export const Increment = createAction(
+export const increment = createAction(
     INCREMENT, 
     props<{value: number}>()
 ); 
 
-export const Decrement = createAction(
+export const decrement = createAction(
     DECREMENT, 
     props<{value:number}>()
 )
