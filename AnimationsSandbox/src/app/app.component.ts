@@ -40,6 +40,7 @@ import {
         style({
           'background-color': 'red',
           transform: 'translateX(0) scale(1)',
+          'border-radius': '0'
         })
       ),
       state(
@@ -47,6 +48,7 @@ import {
         style({
           'background-color': 'blue',
           transform: 'translateX(100px) scale(1)',
+          'border-radius': '0'
         })
       ),
       state(
@@ -58,7 +60,15 @@ import {
       ),
       transition('normal => highlighted', animate(300)),
       transition('highlighted => normal', animate(800)),
-      transition('shrunken <=> *', animate(300)),
+      transition('shrunken <=> *', [
+        style({
+          'background-color': 'orange'
+        }), 
+        animate(1000, style({
+          'border-radius': '50px'
+        })), 
+        animate(500)
+      ]),
     ]),
   ],
 })
