@@ -17,4 +17,13 @@
             {{ item }}
     </li>
   </ol>
+
+  <br><br>
+
+  <ol>
+    <li [@listItem2] *ngFor="let item of items; let index=index" 
+        (click)="onDeleteItem(index)">
+            {{ item }}
+    </li>
+  </ol>
 </div>

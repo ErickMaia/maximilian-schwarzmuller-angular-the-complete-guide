@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import {
   animate,
+  keyframes,
   state,
   style,
   transition,
@@ -98,6 +99,43 @@ import { FormsModule } from '@angular/forms';
         }),
       ]),
     ]),
+
+    trigger('listItem2', [
+      state(
+        'in',
+        style({
+          opacity: '1',
+          transform: 'translateX(0px)',
+        })
+      ),
+      transition('void => *', [
+        
+        animate(1000, keyframes([
+          style({
+            opacity: '0',
+            transform: 'translateX(-100px)',
+            offset: 0
+          }),
+          style({
+            opacity: '0.5', 
+            transform: 'translateX(-50px)',
+            offset: 0.3
+          }),
+          style({
+            opacity: '1', 
+            transform: 'translateX(-20px)',
+            offset: 0.8
+          }),
+          style({
+            opacity: '1', 
+            transform: 'translateX(0px)',
+            offset: 1
+          }),
+        ])),
+      ]),
+    ]),
+
+    
   ],
 })
 export class AppComponent {
