@@ -94,15 +94,20 @@ import { FormsModule } from '@angular/forms';
       ]),
       transition('* => void', [
         group([
-          animate(300, style({
-            color: 'red'
-          })),
-          animate(800,
-          style({
-            transform: 'translateX(100px)',
-            opacity: '0',
-          })),
-        ])
+          animate(
+            300,
+            style({
+              color: 'red',
+            })
+          ),
+          animate(
+            800,
+            style({
+              transform: 'translateX(100px)',
+              opacity: '0',
+            })
+          ),
+        ]),
       ]),
     ]),
 
@@ -115,33 +120,33 @@ import { FormsModule } from '@angular/forms';
         })
       ),
       transition('void => *', [
-        
-        animate(1000, keyframes([
-          style({
-            opacity: '0',
-            transform: 'translateX(-100px)',
-            offset: 0
-          }),
-          style({
-            opacity: '0.5', 
-            transform: 'translateX(-50px)',
-            offset: 0.3
-          }),
-          style({
-            opacity: '1', 
-            transform: 'translateX(-20px)',
-            offset: 0.8
-          }),
-          style({
-            opacity: '1', 
-            transform: 'translateX(0px)',
-            offset: 1
-          }),
-        ])),
+        animate(
+          1000,
+          keyframes([
+            style({
+              opacity: '0',
+              transform: 'translateX(-100px)',
+              offset: 0,
+            }),
+            style({
+              opacity: '0.5',
+              transform: 'translateX(-50px)',
+              offset: 0.3,
+            }),
+            style({
+              opacity: '1',
+              transform: 'translateX(-20px)',
+              offset: 0.8,
+            }),
+            style({
+              opacity: '1',
+              transform: 'translateX(0px)',
+              offset: 1,
+            }),
+          ])
+        ),
       ]),
     ]),
-
-    
   ],
 })
 export class AppComponent {
@@ -153,7 +158,7 @@ export class AppComponent {
 
   onInsertItem() {
     this.items.push(this.itemText);
-    console.log(this.items)
+    console.log(this.items);
   }
 
   onAnimate() {
@@ -169,8 +174,16 @@ export class AppComponent {
     this.wildState = 'shrunken';
   }
 
-  onDeleteItem(index: number){
-    this.items.splice(index, 1)
-    console.log(this.items)
+  onDeleteItem(index: number) {
+    this.items.splice(index, 1);
+    console.log(this.items);
+  }
+
+  onAnimationStart(event: any){
+    console.log('Animation started.', event)
+  }
+
+  onAnimationDone(event: any){
+    console.log('Animation done.', event)
   }
 }
