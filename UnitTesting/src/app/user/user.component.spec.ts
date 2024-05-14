@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async, fakeAsync, tick } from '@angular/core/testing';
 
 import { UserComponent } from './user.component';
 import { UserService } from './user.service';
@@ -52,17 +52,30 @@ describe('UserComponent', () => {
       expect(component.data).toBe(undefined)
   })
 
-  it('should fetch data successfully if not called asynchronously', 
+  it('should fetch data successfully if called asynchronously', 
   async(() => {
     let dataService = fixture.debugElement.injector.get(DataService)
     let spy = spyOn(dataService, 'getDetails')
       .and.returnValue(Promise.resolve('Data')); 
 
-      fixture.detectChanges()
-      fixture.whenStable().then(() => {
-        expect(component.data).toBe('Data')
-      })
+    fixture.detectChanges()
+    fixture.whenStable().then(() => {
+      expect(component.data).toBe('Data')
+    })
   }))
+
+  // This one didn't work for me as it did in the course
+  it('should fetch data successfully if called asynchronously', 
+  fakeAsync(() => {
+    let dataService = fixture.debugElement.injector.get(DataService)
+    let spy = spyOn(dataService, 'getDetails')
+      .and.returnValue(Promise.resolve('Data')); 
+
+    fixture.detectChanges()
+    tick()
+    expect(component.data).toBe('Data')
+  }))
+
 
 
 });
